@@ -29,9 +29,9 @@ namespace Demo.DataAccess.Repositories
         //ApplicationDbContext dbContext = new ApplicationDbContext();
 
         //*****************************Way01 WithoutDBContext
-        //CRUD Operations
-        //Get All
-        //Get By Id
+        ////CRUD Operations
+        ////Get All
+        ////Get By Id
 
         //public Department GetById(int id)
         //{
