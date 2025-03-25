@@ -7,13 +7,13 @@ using Demo.DataAccess.Data.DbContexts;
 
 namespace Demo.DataAccess.Repositories
 {
-    internal class DepartmentReprository(ApplicationDbContext dbContext)
+    public class DepartmentReprository(ApplicationDbContext dbContext) : IDepartmentReprository
     {
 
 
         //******************************Way04 DependancyInjection way
 
-        //private readonly ApplicationDbContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
         //public DepartmentReprository(ApplicationDbContext dbContext)  //1.Injection
         //{
         //    this._dbContext = dbContext;
@@ -31,21 +31,37 @@ namespace Demo.DataAccess.Repositories
         //*****************************Way01 WithoutDBContext
         ////CRUD Operations
         ////Get All
+        public IEnumerable<Department> GetAll(bool withTracking = false)
+        {
+            if (withTracking)
+                return _dbContext.Departments.ToList();
+            else
+                return _dbContext.Departments.AsNoTracking().ToList();
+        }
         ////Get By Id
 
-        //public Department GetById(int id)
-        //{
-        //    var department = dbContext.Departments.Find(id);
-
-        //    return department;
-        //}
-
-
+        public Department GetById(int id) => _dbContext.Departments.Find(id);
 
         //Update
-        //Delete
-        //Insert
 
+        public int Update(Department department)
+        {
+            _dbContext.Departments.Update(department);
+            return _dbContext.SaveChanges();
+        }
+        //Delete
+        public int Remove(Department department)
+        {
+            _dbContext.Departments.Remove(department);
+            return _dbContext.SaveChanges();
+        }
+
+        //Insert
+        public int Add(Department department)
+        {
+            _dbContext.Departments.Add(department);
+            return _dbContext.SaveChanges();
+        }
 
 
     }
