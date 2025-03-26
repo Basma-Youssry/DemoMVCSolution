@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.DataAccess.Modules
+namespace Demo.BusinessLogic.DataTransfareObject
 {
-    public class Department : BaseEntity
+    public class UpdatedDepartmentDto
     {
-
+        public int Id { get; set; }
         public string Name { get; set; } = null!;
 
         public string Code { get; set; } = null!;
 
-        public string Description { get; set; } = null!;
+        public DateOnly DateOfCreation { get; set; }
+
+        public string? Description { get; set; }
     }
 }
