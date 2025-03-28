@@ -9,11 +9,12 @@ namespace Demo.DataAccess.Repositories
 {
     public class DepartmentReprository(ApplicationDbContext dbContext) : IDepartmentReprository
     {
+        private readonly ApplicationDbContext _dbContext = dbContext;
 
 
         //******************************Way04 DependancyInjection way
 
-        private readonly ApplicationDbContext _dbContext;
+        //private readonly ApplicationDbContext _dbContext;
         //public DepartmentReprository(ApplicationDbContext dbContext)  //1.Injection
         //{
         //    this._dbContext = dbContext;
