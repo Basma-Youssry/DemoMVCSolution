@@ -5,12 +5,14 @@ using Microsoft.Identity.Client;
 
 namespace Demo.presentation.Controllers
 {
-    public class DepartmentController(IDepartmentService departmentService) : Controller
+    public class DepartmentController(IDepartmentService _departmentService) : Controller
     {
+        // BaseUrl/Depratment/Index
+        [HttpGet]
         public IActionResult Index()
         {
-            var Departments = departmentService.GetAllDepartments();
-            return View();
+            var Departments = _departmentService.GetAllDepartments();
+            return View(Departments);
         }
     }
 }
