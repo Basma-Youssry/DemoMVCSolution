@@ -22,9 +22,6 @@ namespace Demo.BusinessLogic.Factories
                 Description = D.Description,
                 DateOfCreation = DateOnly.FromDateTime(D.CreatedOn)
             };
-
-           
-        
         }
 
 

@@ -11,7 +11,7 @@ namespace Demo.presentation
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            #region Add services to the container
+            #region Add services to the container(Dependancy Injection)
             builder.Services.AddControllersWithViews();
             //builder.Services.AddScoped<ApplicationDbContext>(); //2. Register to service in DI Container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -29,7 +29,7 @@ namespace Demo.presentation
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            #region Configure the HTTP request pipeline
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -47,6 +47,8 @@ namespace Demo.presentation
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+            #endregion
+
 
             app.Run();
         }
