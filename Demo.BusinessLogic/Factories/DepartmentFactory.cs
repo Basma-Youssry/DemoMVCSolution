@@ -15,8 +15,7 @@ namespace Demo.BusinessLogic.Factories
         {
            return new DepartmentDto()
             {
-
-                DeptId = D.Id,
+                Id = D.Id,
                 Name = D.Name,
                 Code = D.Code,
                 Description = D.Description,
@@ -37,7 +36,8 @@ namespace Demo.BusinessLogic.Factories
                 CreatedOn = DateOnly.FromDateTime(department.CreatedOn),
                 IsDeleted = department.IsDeleted,
                 LastModifiedBy = department.LastModifiedBy,
-                LastModifiedOn = DateOnly.FromDateTime(department.LastModifiedOn)
+                LastModifiedOn = DateOnly.FromDateTime(department.LastModifiedOn),
+                DateOfCreation = DateOnly.FromDateTime(department.CreatedOn)
             };
         }
 

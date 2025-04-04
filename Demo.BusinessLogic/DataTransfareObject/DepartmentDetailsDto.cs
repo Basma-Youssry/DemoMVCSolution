@@ -39,6 +39,8 @@ namespace Demo.BusinessLogic.DataTransfareObject
         public string Code { get; set; } = string.Empty;
 
         public string Description { get; set; }
+        public DateOnly DateOfCreation { get; set; }
+
 
     }
 }

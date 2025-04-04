@@ -1,5 +1,6 @@
 ﻿using Demo.BusinessLogic.DataTransfareObject;
 using Demo.BusinessLogic.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Identity.Client;
@@ -21,6 +22,7 @@ namespace Demo.presentation.Controllers
         [HttpGet]
         public IActionResult Create() => View();
 
+        #region Create Department
         [HttpPost]
         public IActionResult Create(CreatedDepartmentDto departmentdto)
         {
@@ -54,5 +56,21 @@ namespace Demo.presentation.Controllers
             return View(departmentdto);
 
         }
+        #endregion
+
+
+        #region Details of department
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if (!id.HasValue)
+                return BadRequest(); //400
+            var department = _departmentService.GetDepartmentById(id.Value);
+            if (department is null)
+                return NotFound(); //404
+            return View(department);
+        }
+
+        #endregion
     }
 }
