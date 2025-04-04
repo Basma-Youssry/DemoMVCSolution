@@ -11,7 +11,8 @@
 
 <br />
 
-@if(Model.Any()){
+@if(Model?.Any() ?? false)
+{
     <table class="table tabe-striped table-hover mt-2">
         <thead class="text-center">
             <tr>
@@ -55,9 +56,9 @@
 
     </table>
 
-
-
-}else{
+}
+else
+{
 
     <div class="alert alert-info mt-2">
         <h2>No Department Found!</h2>

@@ -98,13 +98,13 @@ namespace Demo.BusinessLogic.Services
         }
 
         //AddDepartment
-        public int AddDepartment(CreatedDepartmentDto departmentDto)
+        public int CreateDepartment(CreatedDepartmentDto departmentDto)
         {
             var department = departmentDto.ToEntity();
 
             return _departmentReposatory.Add(department);
         }
-
+        
         //UpdateDepartment
         public int UpdateDepartment(UpdatedDepartmentDto departmentDto)
         {
