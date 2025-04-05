@@ -11,7 +11,7 @@ namespace Demo.presentation.Controllers
     public class DepartmentController(IDepartmentService _departmentService,
                                      ILogger<DepartmentController> _logger, IWebHostEnvironment _environment) : Controller
     {
-        
+
         // BaseUrl/Depratment/Index
         [HttpGet]
         public IActionResult Index()
@@ -89,13 +89,13 @@ namespace Demo.presentation.Controllers
                 DateOfCreation = department.DateOfCreation
             };
             return View(departmentViewModel);
-                
+
         }
 
 
 
         [HttpPost]
-        public IActionResult Edit([FromRoute]int id,DepartmentEditViewModel viewModel)
+        public IActionResult Edit([FromRoute] int id, DepartmentEditViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -139,5 +139,54 @@ namespace Demo.presentation.Controllers
 
         }
         #endregion
+
+        #region Delete Department
+        //[HttpGet]
+        //public IActionResult Delete(int? id)
+        //{
+        //    if (!id.HasValue) return BadRequest();
+        //    var department = _departmentService.GetDepartmentById(id.Value);
+        //    if (department is null) return NotFound();
+
+        //    return View(department);
+
+
+        //}
+
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            if (id == 0) return BadRequest();
+            try
+            {
+                bool Deleted = _departmentService.DeleteDepartment(id);
+                if (Deleted)
+                    return RedirectToAction(nameof(Index));
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Deperatment");
+                    return RedirectToAction(nameof(Delete), new { id = id });
+                }
+            }
+
+            catch (Exception ex)
+            {
+                if (_environment.IsDevelopment())
+                {
+                    //1. Development => Log Error in console and return same view Error message.
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    //2. Deployment => Log Error in file | Table in Database and return Error view.
+                    _logger.LogError(ex.Message);
+                    return View("ErrorView", ex);
+                }
+            }
+
+            #endregion
+        }
     }
 }
