@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.BusinessLogic.DataTransfareObject
+namespace Demo.BusinessLogic.DataTransfareObject.DepartmentsDto
 {
     public class DepartmentDto
     {
-        public int DeptId { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

@@ -1,6 +1,7 @@
 using Demo.BusinessLogic.Services;
 using Demo.DataAccess.Data.DbContexts;
-using Demo.DataAccess.Repositories;
+using Demo.DataAccess.Repositories.Classes;
+using Demo.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo.presentation
@@ -11,7 +12,7 @@ namespace Demo.presentation
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            #region Add services to the container
+            #region Add services to the container(Dependancy Injection)
             builder.Services.AddControllersWithViews();
             //builder.Services.AddScoped<ApplicationDbContext>(); //2. Register to service in DI Container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -24,12 +25,15 @@ namespace Demo.presentation
 
             builder.Services.AddScoped<IDepartmentReprository, DepartmentReprository>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+
+            builder.Services.AddScoped<IEmployeeReprository, EmployeeReprository>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             #endregion
 
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            #region Configure the HTTP request pipeline
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -47,6 +51,8 @@ namespace Demo.presentation
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+            #endregion
+
 
             app.Run();
         }

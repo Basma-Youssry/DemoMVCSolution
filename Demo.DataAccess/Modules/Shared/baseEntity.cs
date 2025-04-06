@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.DataAccess.Modules
+namespace Demo.DataAccess.Modules.Shared
 {
     public class BaseEntity
     {

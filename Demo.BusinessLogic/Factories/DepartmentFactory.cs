@@ -4,8 +4,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Demo.BusinessLogic.DataTransfareObject;
-using Demo.DataAccess.Modules;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentDto;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentsDto;
+using Demo.DataAccess.Modules.DepartmentModel;
 
 namespace Demo.BusinessLogic.Factories
 {
@@ -15,16 +17,12 @@ namespace Demo.BusinessLogic.Factories
         {
            return new DepartmentDto()
             {
-
-                DeptId = D.Id,
+                Id = D.Id,
                 Name = D.Name,
                 Code = D.Code,
                 Description = D.Description,
                 DateOfCreation = DateOnly.FromDateTime(D.CreatedOn)
             };
-
-           
-        
         }
 
 
@@ -40,7 +38,8 @@ namespace Demo.BusinessLogic.Factories
                 CreatedOn = DateOnly.FromDateTime(department.CreatedOn),
                 IsDeleted = department.IsDeleted,
                 LastModifiedBy = department.LastModifiedBy,
-                LastModifiedOn = DateOnly.FromDateTime(department.LastModifiedOn)
+                LastModifiedOn = DateOnly.FromDateTime(department.LastModifiedOn),
+                DateOfCreation = DateOnly.FromDateTime(department.CreatedOn)
             };
         }
 

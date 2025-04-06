@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.BusinessLogic.DataTransfareObject
+namespace Demo.BusinessLogic.DataTransfareObject.DepartmentDto
 {
-    public class CreatedDepartmentDto
+    public class UpdatedDepartmentDto
     {
+        public int Id { get; set; }
         public string Name { get; set; } = null!;
 
-        public string Code { get; set; }
+        public string Code { get; set; } = null!;
 
         public DateOnly DateOfCreation { get; set; }
 

@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Demo.DataAccess.Modules.Shared;
 
-namespace Demo.BusinessLogic.DataTransfareObject
+namespace Demo.DataAccess.Modules.DepartmentModel
 {
-    public class UpdatedDepartmentDto
+    public class Department : BaseEntity
     {
-        public int Id { get; set; }
+
         public string Name { get; set; } = null!;
 
         public string Code { get; set; } = null!;
 
-        public DateOnly DateOfCreation { get; set; }
-
-        public string? Description { get; set; }
+        public string Description { get; set; } = null!;
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Demo.DataAccess.Modules;
 
-namespace Demo.BusinessLogic.DataTransfareObject
+namespace Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto
 {
     public class DepartmentDetailsDto
     {
@@ -39,6 +39,8 @@ namespace Demo.BusinessLogic.DataTransfareObject
         public string Code { get; set; } = string.Empty;
 
         public string Description { get; set; }
+        public DateOnly DateOfCreation { get; set; }
+
 
     }
 }
