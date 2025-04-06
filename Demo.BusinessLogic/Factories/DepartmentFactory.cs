@@ -4,7 +4,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Demo.BusinessLogic.DataTransfareObject;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentDto;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentsDto;
 using Demo.DataAccess.Modules.DepartmentModel;
 
 namespace Demo.BusinessLogic.Factories

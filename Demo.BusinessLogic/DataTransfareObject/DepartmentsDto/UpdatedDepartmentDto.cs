@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.BusinessLogic.DataTransfareObject
+namespace Demo.BusinessLogic.DataTransfareObject.DepartmentDto
 {
     public class UpdatedDepartmentDto
     {

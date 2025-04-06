@@ -25,6 +25,9 @@ namespace Demo.presentation
 
             builder.Services.AddScoped<IDepartmentReprository, DepartmentReprository>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+
+            builder.Services.AddScoped<IEmployeeReprository, EmployeeReprository>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             #endregion
 
 

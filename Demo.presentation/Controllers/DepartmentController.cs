@@ -1,4 +1,5 @@
-﻿using Demo.BusinessLogic.DataTransfareObject;
+﻿using Demo.BusinessLogic.DataTransfareObject.DepartmentDto;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto;
 using Demo.BusinessLogic.Services;
 using Demo.presentation.ViewModels.DepartmentViewModel;
 using Microsoft.AspNetCore.Http.HttpResults;

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Demo.BusinessLogic.DataTransfareObject
+namespace Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto
 {
     public class CreatedDepartmentDto
     {
-        [Required (ErrorMessage ="Name is required !!!!!!!")]
+        [Required(ErrorMessage = "Name is required !!!!!!!")]
         public string Name { get; set; } = null!;
 
         [Required]

@@ -1,4 +1,6 @@
-﻿using Demo.BusinessLogic.DataTransfareObject;
+﻿using Demo.BusinessLogic.DataTransfareObject.DepartmentDto;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentsDto;
 
 namespace Demo.BusinessLogic.Services
 {

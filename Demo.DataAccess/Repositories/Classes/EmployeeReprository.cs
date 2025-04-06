@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Demo.DataAccess.Repositories.Classes
 {
-    internal class EmployeeReprository(ApplicationDbContext dbcontext):Generic_Reprository<Employee>(dbcontext), IEmployeeReprository
+    public class EmployeeReprository(ApplicationDbContext dbcontext):Generic_Reprository<Employee>(dbcontext), IEmployeeReprository
     {
       
     }

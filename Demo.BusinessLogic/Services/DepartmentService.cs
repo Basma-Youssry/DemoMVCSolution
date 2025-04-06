@@ -4,7 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Demo.BusinessLogic.DataTransfareObject;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentDto;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto;
+using Demo.BusinessLogic.DataTransfareObject.DepartmentsDto;
 using Demo.BusinessLogic.Factories;
 using Demo.DataAccess.Modules;
 using Demo.DataAccess.Repositories.Interfaces;
@@ -87,14 +89,6 @@ namespace Demo.BusinessLogic.Services
 
             //MappingWithExtension methods (Recommended with small project)
             return department is null ? null : department.ToDepartmenDetailsDto();
-
-
-
-
-
-
-
-
         }
 
         //AddDepartment
