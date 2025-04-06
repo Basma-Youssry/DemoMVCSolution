@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Demo.BusinessLogic.DataTransfareObject;
 using Demo.BusinessLogic.Factories;
 using Demo.DataAccess.Modules;
-using Demo.DataAccess.Repositories;
+using Demo.DataAccess.Repositories.Interfaces;
 
 namespace Demo.BusinessLogic.Services
 {
