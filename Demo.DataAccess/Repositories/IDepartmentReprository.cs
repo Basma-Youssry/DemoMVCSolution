@@ -1,4 +1,6 @@
 ﻿
+using Demo.DataAccess.Modules.DepartmentModel;
+
 namespace Demo.DataAccess.Repositories
 {
     public interface IDepartmentReprository

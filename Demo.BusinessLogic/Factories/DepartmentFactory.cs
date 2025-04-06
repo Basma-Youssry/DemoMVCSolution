@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Demo.BusinessLogic.DataTransfareObject;
-using Demo.DataAccess.Modules;
+using Demo.DataAccess.Modules.DepartmentModel;
 
 namespace Demo.BusinessLogic.Factories
 {

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Demo.DataAccess.Modules.Shared;
 
-namespace Demo.DataAccess.Modules
+namespace Demo.DataAccess.Modules.DepartmentModel
 {
     public class Department : BaseEntity
     {
