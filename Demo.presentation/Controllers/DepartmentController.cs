@@ -20,10 +20,12 @@ namespace Demo.presentation.Controllers
             return View(Departments);
         }
 
+
+
+        #region Create Department
         [HttpGet]
         public IActionResult Create() => View();
 
-        #region Create Department
         [HttpPost]
         public IActionResult Create(CreatedDepartmentDto departmentdto)
         {
