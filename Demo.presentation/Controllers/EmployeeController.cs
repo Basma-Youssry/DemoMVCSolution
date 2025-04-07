@@ -1,4 +1,4 @@
-﻿using Demo.BusinessLogic.Services;
+﻿using Demo.BusinessLogic.Services.Interfaces;
 
 namespace Demo.presentation.Controllers
 {

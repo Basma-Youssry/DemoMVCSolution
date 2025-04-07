@@ -8,10 +8,11 @@ using Demo.BusinessLogic.DataTransfareObject.DepartmentDto;
 using Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto;
 using Demo.BusinessLogic.DataTransfareObject.DepartmentsDto;
 using Demo.BusinessLogic.Factories;
+using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Modules;
 using Demo.DataAccess.Repositories.Interfaces;
 
-namespace Demo.BusinessLogic.Services
+namespace Demo.BusinessLogic.Services.Classes
 {
     public class DepartmentService(IDepartmentReprository _departmentReposatory) : IDepartmentService
     {
@@ -98,7 +99,7 @@ namespace Demo.BusinessLogic.Services
 
             return _departmentReposatory.Add(department);
         }
-        
+
         //UpdateDepartment
         public int UpdateDepartment(UpdatedDepartmentDto departmentDto)
         {
