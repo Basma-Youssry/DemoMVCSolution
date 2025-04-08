@@ -1,8 +1,10 @@
+using Demo.BusinessLogic.Profiles;
 using Demo.BusinessLogic.Services.Classes;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Data.DbContexts;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo.presentation
@@ -29,6 +31,9 @@ namespace Demo.presentation
 
             builder.Services.AddScoped<IEmployeeReprository, EmployeeReprository>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
+            //builder.Services.AddAutoMapper(typeof(ProjectReference).Assembly);
+            builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
             #endregion
 
 

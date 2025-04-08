@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto;
 using Demo.BusinessLogic.DataTransfareObject.DepartmentsDto;
 using Demo.BusinessLogic.DataTransfareObject.EmployeeDto;
@@ -15,25 +16,18 @@ using Demo.DataAccess.Repositories.Interfaces;
 namespace Demo.BusinessLogic.Services.Classes
 {
 
-    public class EmployeeService(IEmployeeReprository _employeeReprository) : IEmployeeService
+    public class EmployeeService(IEmployeeReprository _employeeReprository, IMapper _mapper) : IEmployeeService
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking)
         {
             var employees = _employeeReprository.GetAll();
 
-            var employeesDto = employees.Select(E => new EmployeeDto()
-            {
-                Id = E.Id,
-                Name = E.Name,
-                Age = E.Age,
-                IsActive = E.IsActive,
-                Salary = E.Salary,
-                Email = E.Email,
-                Gender = E.Gender.ToString(),
-                EmployeeType = E.EmployeeType.ToString()
-            });
+            //Src = Employee
+            //Dest = EployeeDto
 
+            var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
             return employeesDto;
+
 
         }
 
@@ -41,55 +35,41 @@ namespace Demo.BusinessLogic.Services.Classes
         {
             var employee = _employeeReprository.GetById(id);
 
-            if (employee is null) return null;
-            else return new EmployeeDetailsDto()
-            {
-                Id = employee.Id,
-                Name = employee.Name,
-                Salary = employee.Salary,
-                Address = employee.Address,
-                Age = employee.Age,
-                Email = employee.Email,
-                HiringDate = DateOnly.FromDateTime(employee.HiringDate),
-                IsActive = employee.IsActive,
-                PhoneNumber = employee.PhoneNumber,
-                Gender = employee.Gender.ToString(),
-                EmployeeType = employee.EmployeeType.ToString(),
-                CreatedBy = 1,
-                CreatedOn = employee.CreatedOn,
-                LastModifiedBy = 1,
-                LastModifiedOn = employee.LastModifiedOn
-            };
+            return  employee is null ? null : _mapper.Map<Employee, EmployeeDetailsDto>(employee); 
+
+
+            
         }
 
-        //public int CreateEmployee(CreatedEmployeeDto employeeDto)
-        //{
-        //    var employee = employeeDto.ToEntity();
+        public int CreateEmployee(CreatedEmployeeDto employeeDto)
+        {
+            var employee = _mapper.Map<CreatedEmployeeDto, Employee>(employeeDto);
 
-        //    return _employeeReprository.Add(employee);
-        //}
+            return _employeeReprository.Add(employee);
+        }
 
-        //public int UpdateEmployee(UpdatedEmployeeDto EmployeeDto)
-        //{
-        //    return _employeeReprository.Update(EmployeeDto.ToEntity());
-        //}
+        public int UpdateEmployee(UpdatedEmployeeDto EmployeeDto)
+        {
+            return _employeeReprository.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(EmployeeDto));
+        }
 
-        //public bool DeleteEmployee(int id)
-        //{
-        //    var Employee = _employeeReprository.GetById(id);
+        public bool DeleteEmployee(int id)
+        {
+            var Employee = _employeeReprository.GetById(id);
 
-        //    if (Employee is null) return false;
+            if (Employee is null) return false;
 
-        //    else
-        //    {
-        //        int Result = _employeeReprository.Remove(Employee);
+            else
+            {
+                Employee.IsDeleted = true;
+                int Result = _employeeReprository.Update(Employee);
 
-        //        return Result > 0 ? true : false;
-        //    }
+                return Result > 0 ? true : false;
+            }
 
 
 
-        //}
+        }
 
     }
 }
