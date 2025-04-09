@@ -5,13 +5,13 @@ namespace Demo.BusinessLogic.Services.Interfaces
 {
     public interface IEmployeeService
     {
-        IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking);
+        IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false);
 
         EmployeeDetailsDto GetEmployeeById(int id);
-        //int CreateEmployee(CreatedEmployeeDto employeeDto);
+        int CreateEmployee(CreatedEmployeeDto employeeDto);
 
-        //int UpdateEmployee(UpdatedEmployeeDto EmployeeDto);
-        //bool DeleteEmployee(int id);
+        int UpdateEmployee(UpdatedEmployeeDto EmployeeDto);
+        bool DeleteEmployee(int id);
 
     }
 }

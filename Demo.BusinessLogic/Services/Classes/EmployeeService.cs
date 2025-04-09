@@ -18,9 +18,9 @@ namespace Demo.BusinessLogic.Services.Classes
 
     public class EmployeeService(IEmployeeReprository _employeeReprository, IMapper _mapper) : IEmployeeService
     {
-        public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking)
+        public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
         {
-            var employees = _employeeReprository.GetAll();
+            var employees = _employeeReprository.GetAll(WithTracking);
 
             //Src = Employee
             //Dest = EployeeDto
