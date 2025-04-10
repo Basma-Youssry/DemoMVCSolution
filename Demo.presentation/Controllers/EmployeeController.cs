@@ -98,7 +98,7 @@ namespace Demo.presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int? id, UpdatedEmployeeDto employeeDto)
+        public IActionResult Edit([FromRoute]int? id, UpdatedEmployeeDto employeeDto)
         {
             if (!id.HasValue || employeeDto.Id != id) return BadRequest();
             if (!ModelState.IsValid) //return View(employeeDto);
@@ -132,6 +132,46 @@ namespace Demo.presentation.Controllers
             return View(employeeDto);
 
         }
+
+        #endregion
+
+        #region Delete Employee
+        public IActionResult Delete(int id)
+        {
+            if (id == 0) return BadRequest();
+
+            try
+            {
+                bool Deleted = _employeeService.DeleteEmployee(id);
+                if (Deleted)
+                    return RedirectToAction(nameof(Index));
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Employee is not Deleted");
+                    return RedirectToAction(nameof(Delete), new { id = id });
+                }
+            }
+
+            catch (Exception ex)
+            {
+                if (_environment.IsDevelopment())
+                {
+                    //1. Development => Log Error in console and return same view Error message.
+                    ModelState.AddModelError(string.Empty, ex.Message);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    //2. Deployment => Log Error in file | Table in Database and return Error view.
+                    _logger.LogError(ex.Message);
+                    return View("ErrorView", ex);
+                }
+            }
+
+        }
+
+
+
 
         #endregion
     }
