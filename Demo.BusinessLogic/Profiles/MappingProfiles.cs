@@ -30,7 +30,6 @@ namespace Demo.BusinessLogic.Profiles
             CreateMap<CreatedEmployeeDto, Employee>()
                     .ForMember(dest => dest.HiringDate, options => options.MapFrom(src => src.HiringDate.ToDateTime(TimeOnly.MinValue)));
             CreateMap<UpdatedEmployeeDto, Employee>()
-
                     .ForMember(dest => dest.HiringDate, options => options.MapFrom(src => src.HiringDate.ToDateTime(TimeOnly.MinValue)));
         }
     }

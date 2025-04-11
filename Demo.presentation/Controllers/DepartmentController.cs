@@ -28,6 +28,7 @@ namespace Demo.presentation.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
+        //[ValidateAntiForgeryToken]  //ActionFilter
         public IActionResult Create(CreatedDepartmentDto departmentdto)
         {
             if (ModelState.IsValid) //Server side validation
