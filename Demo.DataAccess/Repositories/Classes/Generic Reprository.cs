@@ -45,5 +45,13 @@ namespace Demo.DataAccess.Repositories.Classes
             _dbContext.Set<TEntity>().Add(entity);
             return _dbContext.SaveChanges();
         }
+
+       
+        public IEnumerable<TResult> GetAll<TResult>(System.Linq.Expressions.Expression<Func<TEntity, TResult>> selector)
+        {
+            return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true)
+                                            .Select(selector);
+
+        }
     }
 }
