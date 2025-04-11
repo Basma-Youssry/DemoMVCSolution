@@ -1,14 +1,17 @@
 ﻿using Demo.BusinessLogic.DataTransfareObject.EmployeeDto;
 using Demo.BusinessLogic.DataTransfareObject.EmployeesDto;
 
-namespace Demo.BusinessLogic.Services
+namespace Demo.BusinessLogic.Services.Interfaces
 {
     public interface IEmployeeService
     {
-        int CreateEmployee(CreatedEmployeeDto employeeDto);
-        bool DeleteEmployee(int id);
-        IEnumerable<EmployeeDto> GetAllEmployees();
+        IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false);
+
         EmployeeDetailsDto GetEmployeeById(int id);
+        int CreateEmployee(CreatedEmployeeDto employeeDto);
+
         int UpdateEmployee(UpdatedEmployeeDto EmployeeDto);
+        bool DeleteEmployee(int id);
+
     }
 }

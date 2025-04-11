@@ -1,7 +1,11 @@
-using Demo.BusinessLogic.Services;
+using Demo.BusinessLogic.Profiles;
+using Demo.BusinessLogic.Services.Classes;
+using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Data.DbContexts;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo.presentation
@@ -13,7 +17,10 @@ namespace Demo.presentation
             var builder = WebApplication.CreateBuilder(args);
 
             #region Add services to the container(Dependancy Injection)
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(item: new AutoValidateAntiforgeryTokenAttribute());
+            });
             //builder.Services.AddScoped<ApplicationDbContext>(); //2. Register to service in DI Container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -28,6 +35,9 @@ namespace Demo.presentation
 
             builder.Services.AddScoped<IEmployeeReprository, EmployeeReprository>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+
+            //builder.Services.AddAutoMapper(typeof(ProjectReference).Assembly);
+            builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
             #endregion
 
 

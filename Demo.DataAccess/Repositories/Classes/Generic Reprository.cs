@@ -17,9 +17,9 @@ namespace Demo.DataAccess.Repositories.Classes
         public IEnumerable<TEntity> GetAll(bool withTracking = false)
         {
             if (withTracking)
-                return _dbContext.Set<TEntity>().ToList();
+                return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true).ToList();
             else
-                return _dbContext.Set<TEntity>().AsNoTracking().ToList();
+                return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true).AsNoTracking().ToList();
         }
         ////Get By Id
 
@@ -44,6 +44,14 @@ namespace Demo.DataAccess.Repositories.Classes
         {
             _dbContext.Set<TEntity>().Add(entity);
             return _dbContext.SaveChanges();
+        }
+
+       
+        public IEnumerable<TResult> GetAll<TResult>(System.Linq.Expressions.Expression<Func<TEntity, TResult>> selector)
+        {
+            return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true)
+                                            .Select(selector);
+
         }
     }
 }

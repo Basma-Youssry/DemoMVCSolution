@@ -2,7 +2,7 @@
 using Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto;
 using Demo.BusinessLogic.DataTransfareObject.DepartmentsDto;
 
-namespace Demo.BusinessLogic.Services
+namespace Demo.BusinessLogic.Services.Interfaces
 {
     public interface IDepartmentService
     {
