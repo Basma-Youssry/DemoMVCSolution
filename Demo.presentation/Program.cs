@@ -17,10 +17,11 @@ namespace Demo.presentation
             var builder = WebApplication.CreateBuilder(args);
 
             #region Add services to the container(Dependancy Injection)
-            builder.Services.AddControllersWithViews(options =>
-            {
-                options.Filters.Add(item: new AutoValidateAntiforgeryTokenAttribute());
-            });
+            builder.Services.AddControllersWithViews();
+            //builder.Services.AddControllersWithViews(options =>
+            //{
+            //    options.Filters.Add(item: new AutoValidateAntiforgeryTokenAttribute());
+            //});
             //builder.Services.AddScoped<ApplicationDbContext>(); //2. Register to service in DI Container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {

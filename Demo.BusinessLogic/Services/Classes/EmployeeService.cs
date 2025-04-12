@@ -20,20 +20,20 @@ namespace Demo.BusinessLogic.Services.Classes
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
         {
-
-            var employees = _employeeReprository.GetAll(E => new EmployeeDto()
-            {
-                Id = E.Id,
-                Name = E.Name,
-                Salary = E.Salary,
-                Age = E.Age
-            }).Where(E => E.Age > 25);
+            //P010 (IEnumrable & IQuarable)
+            //var employees = _employeeReprository.GetAll(E => new EmployeeDto()
+            //{
+            //    Id = E.Id,
+            //    Name = E.Name,
+            //    Salary = E.Salary,
+            //    Age = E.Age
+            //}).Where(E => E.Age > 25);
 
             //Src = Employee
             //Dest = EployeeDto
-
-            //var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
-            return employees;
+            var employees = _employeeReprository.GetAll();
+            var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
+            return employeesDto;
 
 
         }
@@ -42,10 +42,7 @@ namespace Demo.BusinessLogic.Services.Classes
         {
             var employee = _employeeReprository.GetById(id);
 
-            return  employee is null ? null : _mapper.Map<Employee, EmployeeDetailsDto>(employee); 
-
-
-            
+            return  employee is null ? null : _mapper.Map<Employee, EmployeeDetailsDto>(employee);    
         }
 
         public int CreateEmployee(CreatedEmployeeDto employeeDto)

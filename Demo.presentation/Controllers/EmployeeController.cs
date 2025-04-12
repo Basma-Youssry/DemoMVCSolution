@@ -4,6 +4,8 @@ using Demo.BusinessLogic.Services.Classes;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Modules.EmployeeModel;
 using Demo.DataAccess.Modules.Shared.Enums;
+using Demo.presentation.ViewModels.DepartmentViewModel;
+using Demo.presentation.ViewModels.EmployeeViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -25,12 +27,25 @@ namespace Demo.presentation.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public IActionResult Create(CreatedEmployeeDto employeeDto)
+        public IActionResult Create(EmployeeViewModel departmentViewModel)
         {
             if (ModelState.IsValid) //Server side validation
             {
                 try
                 {
+                    var employeeDto = new CreatedEmployeeDto()
+                    {
+                        Name = departmentViewModel.Name,
+                        Age = departmentViewModel.Age,
+                        Address = departmentViewModel.Address,
+                        Email = departmentViewModel.Email,
+                        HiringDate = departmentViewModel.HiringDate,
+                        PhoneNumber = departmentViewModel.PhoneNumber,
+                        Salary = departmentViewModel.Salary,
+                        IsActive = departmentViewModel.IsActive,
+                        Gender = departmentViewModel.Gender,
+                        EmployeeType = departmentViewModel.EmployeeType
+                    };
                     int Result = _employeeService.CreateEmployee(employeeDto);
 
                     if (Result > 0)
@@ -53,11 +68,12 @@ namespace Demo.presentation.Controllers
                 }
             }
 
-            return View(employeeDto);
+            return View(departmentViewModel);
         }
         #endregion
 
         #region Details of Employee
+        [HttpGet]
         public IActionResult Details(int? id)
         {
             if (!id.HasValue) return BadRequest();
@@ -65,10 +81,6 @@ namespace Demo.presentation.Controllers
             if (employee is null) return NotFound();
             return View(employee);
         }
-
-
-
-
         #endregion
 
         #region Edit Employee
@@ -79,7 +91,7 @@ namespace Demo.presentation.Controllers
 
             var employee = _employeeService.GetEmployeeById(id.Value);
 
-            var employeeDto = new UpdatedEmployeeDto()
+            var employeeDto = new EmployeeViewModel()
             {
                 Id = employee.Id,
                 Name = employee.Name,
@@ -98,14 +110,29 @@ namespace Demo.presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit([FromRoute]int? id, UpdatedEmployeeDto employeeDto)
+        public IActionResult Edit([FromRoute]int? id, EmployeeViewModel viewModel)
         {
-            if (!id.HasValue || employeeDto.Id != id) return BadRequest();
-            if (!ModelState.IsValid) //return View(employeeDto);
+            if (!id.HasValue) return BadRequest();
+
+            if (ModelState.IsValid) //return View(employeeDto);
 
             try
             {
-                var Result = _employeeService.UpdateEmployee(employeeDto);
+                    var UpdatedDto = new UpdatedEmployeeDto()
+                    {
+                        Name = viewModel.Name,
+                        Age = viewModel.Age,
+                        Address = viewModel.Address,
+                        Email = viewModel.Email,
+                        HiringDate = viewModel.HiringDate,
+                        PhoneNumber = viewModel.PhoneNumber,
+                        Salary = viewModel.Salary,
+                        IsActive = viewModel.IsActive,
+                        Gender = viewModel.Gender,
+                        EmployeeType = viewModel.EmployeeType
+                    };
+
+                    var Result = _employeeService.UpdateEmployee(UpdatedDto);
 
 
                 if (Result > 0)
@@ -129,13 +156,14 @@ namespace Demo.presentation.Controllers
             }
 
 
-            return View(employeeDto);
+            return View(viewModel);
 
         }
 
         #endregion
 
         #region Delete Employee
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             if (id == 0) return BadRequest();

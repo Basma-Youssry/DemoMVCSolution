@@ -51,7 +51,6 @@ namespace Demo.DataAccess.Repositories.Classes
         {
             return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true)
                                             .Select(selector);
-
         }
     }
 }

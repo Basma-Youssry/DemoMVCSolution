@@ -29,13 +29,20 @@ namespace Demo.presentation.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]  //ActionFilter
-        public IActionResult Create(CreatedDepartmentDto departmentdto)
+        public IActionResult Create(DepartmentViewModel departmentViewModel)
         {
             if (ModelState.IsValid) //Server side validation
             {
                 try
                 {
-                    int Result = _departmentService.CreateDepartment(departmentdto);
+                    var departmentDto = new CreatedDepartmentDto()
+                    {
+                        Name = departmentViewModel.Name,
+                        Code = departmentViewModel.Code,
+                        Description = departmentViewModel.Description,
+                        DateOfCreation = departmentViewModel.DateOfCreation
+                    };
+                    int Result = _departmentService.CreateDepartment(departmentDto);
 
                     if (Result > 0)
                         return RedirectToAction(nameof(Index));
@@ -58,7 +65,7 @@ namespace Demo.presentation.Controllers
             }
 
             //Will excute for every statments
-            return View(departmentdto);
+            return View(departmentViewModel);
 
         }
         #endregion
@@ -85,7 +92,7 @@ namespace Demo.presentation.Controllers
             if (!id.HasValue) return BadRequest();
             var department = _departmentService.GetDepartmentById(id.Value);
             if (department is null) return NotFound();
-            var departmentViewModel = new DepartmentEditViewModel()
+            var departmentViewModel = new DepartmentViewModel()
             {
                 Name = department.Name,
                 Code = department.Code,
@@ -99,7 +106,7 @@ namespace Demo.presentation.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit([FromRoute] int id, DepartmentEditViewModel viewModel)
+        public IActionResult Edit([FromRoute] int id, DepartmentViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
