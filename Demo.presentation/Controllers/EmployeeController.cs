@@ -24,10 +24,12 @@ namespace Demo.presentation.Controllers
 
         #region Create Employee
         [HttpGet]
-        public IActionResult Create() => View();
+        public IActionResult Create() {
+           return View();
+        } 
 
         [HttpPost]
-        public IActionResult Create(EmployeeViewModel departmentViewModel)
+        public IActionResult Create(EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid) //Server side validation
             {
@@ -35,16 +37,17 @@ namespace Demo.presentation.Controllers
                 {
                     var employeeDto = new CreatedEmployeeDto()
                     {
-                        Name = departmentViewModel.Name,
-                        Age = departmentViewModel.Age,
-                        Address = departmentViewModel.Address,
-                        Email = departmentViewModel.Email,
-                        HiringDate = departmentViewModel.HiringDate,
-                        PhoneNumber = departmentViewModel.PhoneNumber,
-                        Salary = departmentViewModel.Salary,
-                        IsActive = departmentViewModel.IsActive,
-                        Gender = departmentViewModel.Gender,
-                        EmployeeType = departmentViewModel.EmployeeType
+                        Name = employeeViewModel.Name,
+                        Age = employeeViewModel.Age,
+                        Address = employeeViewModel.Address,
+                        Email = employeeViewModel.Email,
+                        HiringDate = employeeViewModel.HiringDate,
+                        PhoneNumber = employeeViewModel.PhoneNumber,
+                        Salary = employeeViewModel.Salary,
+                        IsActive = employeeViewModel.IsActive,
+                        Gender = employeeViewModel.Gender,
+                        EmployeeType = employeeViewModel.EmployeeType,
+                        DepartmentId = employeeViewModel.DepartmentId
                     };
                     int Result = _employeeService.CreateEmployee(employeeDto);
 
@@ -68,7 +71,7 @@ namespace Demo.presentation.Controllers
                 }
             }
 
-            return View(departmentViewModel);
+            return View(employeeViewModel);
         }
         #endregion
 
@@ -93,7 +96,7 @@ namespace Demo.presentation.Controllers
 
             var employeeDto = new EmployeeViewModel()
             {
-                Id = employee.Id,
+               
                 Name = employee.Name,
                 Salary = employee.Salary,
                 Address = employee.Address,
@@ -118,8 +121,9 @@ namespace Demo.presentation.Controllers
 
             try
             {
-                    var UpdatedDto = new UpdatedEmployeeDto()
+                    var employeeDto = new UpdatedEmployeeDto()
                     {
+                        Id = id.Value,  //Take of from Route
                         Name = viewModel.Name,
                         Age = viewModel.Age,
                         Address = viewModel.Address,
@@ -129,10 +133,11 @@ namespace Demo.presentation.Controllers
                         Salary = viewModel.Salary,
                         IsActive = viewModel.IsActive,
                         Gender = viewModel.Gender,
-                        EmployeeType = viewModel.EmployeeType
+                        EmployeeType = viewModel.EmployeeType,
+                        DepartmentId = viewModel.DepartmentId
                     };
 
-                    var Result = _employeeService.UpdateEmployee(UpdatedDto);
+                    var Result = _employeeService.UpdateEmployee(employeeDto);
 
 
                 if (Result > 0)

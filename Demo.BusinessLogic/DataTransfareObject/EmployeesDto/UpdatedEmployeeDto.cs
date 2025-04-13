@@ -34,5 +34,8 @@ namespace Demo.BusinessLogic.DataTransfareObject.EmployeesDto
         public DateOnly HiringDate { get; set; }
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
+
+        //For relationship between Employee and department
+        public int? DepartmentId { get; set; }
     }
 }
