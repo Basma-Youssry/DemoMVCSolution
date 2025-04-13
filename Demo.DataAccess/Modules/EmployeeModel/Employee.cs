@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Demo.DataAccess.Modules.DepartmentModel;
 using Demo.DataAccess.Modules.Shared;
 using Demo.DataAccess.Modules.Shared.Enums;
 
@@ -20,5 +21,8 @@ namespace Demo.DataAccess.Modules.EmployeeModel
         public DateTime HiringDate { get; set; }
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
+        //Foriegn key
+        public int? DepartmentId { get; set; }
+        public Department? Department { get; set; }
     }
 }
