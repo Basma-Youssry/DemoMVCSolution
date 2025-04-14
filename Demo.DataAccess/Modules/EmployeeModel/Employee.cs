@@ -23,6 +23,6 @@ namespace Demo.DataAccess.Modules.EmployeeModel
         public EmployeeType EmployeeType { get; set; }
         //Foriegn key
         public int? DepartmentId { get; set; }
-        public Department? Department { get; set; }
+        public virtual Department? Department { get; set; }
     }
 }

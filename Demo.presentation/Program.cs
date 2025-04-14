@@ -29,6 +29,7 @@ namespace Demo.presentation
                 //options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"]);
 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseLazyLoadingProxies();
             });
 
             builder.Services.AddScoped<IDepartmentReprository, DepartmentReprository>();
