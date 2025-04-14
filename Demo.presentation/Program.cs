@@ -30,7 +30,7 @@ namespace Demo.presentation
 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
                 options.UseLazyLoadingProxies();
-            });
+            }, ServiceLifetime.Scoped);
 
             builder.Services.AddScoped<IDepartmentReprository, DepartmentReprository>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
