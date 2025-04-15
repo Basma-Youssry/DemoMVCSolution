@@ -16,67 +16,68 @@ using Demo.DataAccess.Repositories.Interfaces;
 namespace Demo.BusinessLogic.Services.Classes
 {
 
-    public class EmployeeService(IEmployeeReprository _employeeReprository, IMapper _mapper) : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitofwork, IMapper _mapper) : IEmployeeService
     {
-        public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
+        public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
 
-            var employees = _employeeReprository.GetAll(E => new EmployeeDto()
-            {
-                Id = E.Id,
-                Name = E.Name,
-                Salary = E.Salary,
-                Age = E.Age
-            }).Where(E => E.Age > 25);
 
-            //Src = Employee
-            //Dest = EployeeDto
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrEmpty(EmployeeSearchName))
+                employees = _unitofwork.EmployeeReprository.GetAll();
+               
+            
+            else
+                 employees =_unitofwork.EmployeeReprository.GetAll(E => E.Name.ToLower().Contains(EmployeeSearchName.ToLower()));
 
-            //var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
-            return employees;
+            var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
+            return employeesDto;
+
 
 
         }
 
         public EmployeeDetailsDto GetEmployeeById(int id)
         {
-            var employee = _employeeReprository.GetById(id);
+            var employee = _unitofwork.EmployeeReprository.GetById(id);
 
-            return  employee is null ? null : _mapper.Map<Employee, EmployeeDetailsDto>(employee); 
-
-
-            
+            return  employee is null ? null : _mapper.Map<Employee, EmployeeDetailsDto>(employee);    
         }
 
         public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {
             var employee = _mapper.Map<CreatedEmployeeDto, Employee>(employeeDto);
 
-            return _employeeReprository.Add(employee);
+            _unitofwork.EmployeeReprository.Add(employee); //AddLocally
+
+            return _unitofwork.SaveChanges();
         }
 
         public int UpdateEmployee(UpdatedEmployeeDto EmployeeDto)
         {
-            return _employeeReprository.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(EmployeeDto));
+             _unitofwork.EmployeeReprository.Update(_mapper.Map<UpdatedEmployeeDto, Employee>(EmployeeDto));
+
+            return _unitofwork.SaveChanges();
         }
 
         public bool DeleteEmployee(int id)
         {
-            var Employee = _employeeReprository.GetById(id);
+            var Employee = _unitofwork.EmployeeReprository.GetById(id);
 
             if (Employee is null) return false;
 
             else
             {
                 Employee.IsDeleted = true;
-                int Result = _employeeReprository.Update(Employee);
+                _unitofwork.EmployeeReprository.Update(Employee);
 
-                return Result > 0 ? true : false;
+                return _unitofwork.SaveChanges()  > 0 ? true : false;
             }
 
 
 
         }
 
+      
     }
 }

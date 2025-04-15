@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Demo.DataAccess.Modules.EmployeeModel;
 using Demo.DataAccess.Modules.Shared.Enums;
 
-namespace Demo.BusinessLogic.DataTransfareObject.EmployeesDto
+namespace Demo.presentation.ViewModels.EmployeeViewModel
 {
-    public class UpdatedEmployeeDto
+    public class EmployeeViewModel
     {
-        public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Name can't be null")]
         [MaxLength(50, ErrorMessage = "Max length should be 50 character")]
         [MinLength(5, ErrorMessage = "Min length should be 5 characters")]
         public string Name { get; set; } = null!;
@@ -36,6 +31,7 @@ namespace Demo.BusinessLogic.DataTransfareObject.EmployeesDto
         public EmployeeType EmployeeType { get; set; }
 
         //For relationship between Employee and department
+        [Display(Name = "Department")]
         public int? DepartmentId { get; set; }
     }
 }

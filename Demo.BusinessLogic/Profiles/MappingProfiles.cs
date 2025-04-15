@@ -18,13 +18,14 @@ namespace Demo.BusinessLogic.Profiles
         {
             CreateMap<Employee, EmployeeDto>()
                     .ForMember(dest => dest.EmpGender, Options => Options.MapFrom(src => src.Gender))
-                    .ForMember(dest => dest.EmpType, Options => Options.MapFrom(src => src.EmployeeType));
+                    .ForMember(dest => dest.EmpType, Options => Options.MapFrom(src => src.EmployeeType))
+                    .ForMember(dest => dest.Department, Options => Options.MapFrom(src =>  src.Department != null ? src.Department.Name : null));
 
             CreateMap<Employee, EmployeeDetailsDto>()
                     .ForMember(dest => dest.Gender, Options => Options.MapFrom(src => src.Gender))
                     .ForMember(dest => dest.EmployeeType, Options => Options.MapFrom(src => src.EmployeeType))
-                    .ForMember(dest => dest.HiringDate, options => options.MapFrom(src => DateOnly.FromDateTime(src.HiringDate)));
-
+                    .ForMember(dest => dest.HiringDate, options => options.MapFrom(src => DateOnly.FromDateTime(src.HiringDate)))
+                    .ForMember(dest => dest.Department, Options => Options.MapFrom(src => src.Department != null ? src.Department.Name : null));
 
 
             CreateMap<CreatedEmployeeDto, Employee>()

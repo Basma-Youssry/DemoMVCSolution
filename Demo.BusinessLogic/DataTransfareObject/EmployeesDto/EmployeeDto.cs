@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Demo.DataAccess.Modules.EmployeeModel;
 using Demo.DataAccess.Modules.Shared.Enums;
+using Microsoft.Identity.Client;
 
 namespace Demo.BusinessLogic.DataTransfareObject.EmployeeDto
 {
@@ -24,6 +25,8 @@ namespace Demo.BusinessLogic.DataTransfareObject.EmployeeDto
 
         [Display(Name = "Employee Type")]
         public string EmpType { get; set; }
+
+        public string? Department { get; set; }
 
     }
 }
