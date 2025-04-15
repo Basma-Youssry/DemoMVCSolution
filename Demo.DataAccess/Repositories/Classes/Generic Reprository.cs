@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Demo.DataAccess.Data.DbContexts;
@@ -20,6 +21,13 @@ namespace Demo.DataAccess.Repositories.Classes
                 return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true).ToList();
             else
                 return _dbContext.Set<TEntity>().Where(E => E.IsDeleted != true).AsNoTracking().ToList();
+        }
+
+        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> Predicte)
+        {
+            return _dbContext.Set<TEntity>()
+                             .Where(Predicte)
+                             .ToList();
         }
         ////Get By Id
 

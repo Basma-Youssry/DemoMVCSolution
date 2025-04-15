@@ -18,22 +18,21 @@ namespace Demo.BusinessLogic.Services.Classes
 
     public class EmployeeService(IEmployeeReprository _employeeReprository, IMapper _mapper) : IEmployeeService
     {
-        public IEnumerable<EmployeeDto> GetAllEmployees(bool WithTracking = false)
+        public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
-            //P010 (IEnumrable & IQuarable)
-            //var employees = _employeeReprository.GetAll(E => new EmployeeDto()
-            //{
-            //    Id = E.Id,
-            //    Name = E.Name,
-            //    Salary = E.Salary,
-            //    Age = E.Age
-            //}).Where(E => E.Age > 25);
 
-            //Src = Employee
-            //Dest = EployeeDto
-            var employees = _employeeReprository.GetAll();
+
+            IEnumerable<Employee> employees;
+            if (string.IsNullOrEmpty(EmployeeSearchName))
+                employees = _employeeReprository.GetAll();
+               
+            
+            else
+                 employees = _employeeReprository.GetAll(E => E.Name.ToLower().Contains(EmployeeSearchName.ToLower()));
+
             var employeesDto = _mapper.Map<IEnumerable<Employee>, IEnumerable<EmployeeDto>>(employees);
             return employeesDto;
+
 
 
         }
@@ -75,5 +74,6 @@ namespace Demo.BusinessLogic.Services.Classes
 
         }
 
+      
     }
 }

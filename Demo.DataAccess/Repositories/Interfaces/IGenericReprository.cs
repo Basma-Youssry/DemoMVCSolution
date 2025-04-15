@@ -15,6 +15,7 @@ namespace Demo.DataAccess.Repositories.Interfaces
 
         IEnumerable<TResult> GetAll<TResult>(Expression <Func<TEntity, TResult>> selector);
 
+        IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> Predicate);
         TEntity GetById(int id);
         
         int Remove(TEntity entity);
