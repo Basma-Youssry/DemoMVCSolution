@@ -10,7 +10,7 @@ namespace Demo.DataAccess.Repositories.Interfaces
 {
     public interface IGenericReprository<TEntity> where TEntity : BaseEntity
     {
-        int Add(TEntity entity);
+        void Add(TEntity entity);
         IEnumerable<TEntity> GetAll(bool withTracking = false);
 
         IEnumerable<TResult> GetAll<TResult>(Expression <Func<TEntity, TResult>> selector);
@@ -18,7 +18,7 @@ namespace Demo.DataAccess.Repositories.Interfaces
         IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>> Predicate);
         TEntity GetById(int id);
         
-        int Remove(TEntity entity);
-        int Update(TEntity entity);
+        void Remove(TEntity entity);
+        void Update(TEntity entity);
     }
 }
