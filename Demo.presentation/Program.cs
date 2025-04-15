@@ -32,10 +32,10 @@ namespace Demo.presentation
                 options.UseLazyLoadingProxies();
             }, ServiceLifetime.Scoped);
 
-            builder.Services.AddScoped<IDepartmentReprository, DepartmentReprository>();
+            //builder.Services.AddScoped<IDepartmentReprository, DepartmentReprository>();
             builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
-            builder.Services.AddScoped<IEmployeeReprository, EmployeeReprository>();
+            //builder.Services.AddScoped<EmployeeReprository, EmployeeReprository>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

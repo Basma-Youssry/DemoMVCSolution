@@ -16,7 +16,7 @@ using Demo.DataAccess.Repositories.Interfaces;
 namespace Demo.BusinessLogic.Services.Classes
 {
 
-    public class EmployeeService(IUnitOfWork _unitofwork ,IEmployeeReprository _employeeReprository, IMapper _mapper) : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitofwork, IMapper _mapper) : IEmployeeService
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {

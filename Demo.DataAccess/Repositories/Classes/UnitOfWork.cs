@@ -11,21 +11,19 @@ namespace Demo.DataAccess.Repositories.Classes
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private IEmployeeReprository _employeeReprository;
-        private IDepartmentReprository _departmentReprository;
+        private readonly Lazy<IEmployeeReprository> _employeeReprository;
+        private readonly Lazy<IDepartmentReprository> _departmentReprository;
         private readonly ApplicationDbContext _dbContext;
-        public UnitOfWork(IEmployeeReprository employeeReprository,
-                            IDepartmentReprository departmentReprository,
-                            ApplicationDbContext _dbContext)
+        public UnitOfWork(ApplicationDbContext dbContext)
         {
-            _employeeReprository = employeeReprository;
-            _departmentReprository = departmentReprository;
-            this._dbContext = _dbContext;
+            this._dbContext = dbContext;
+            _employeeReprository = new Lazy<IEmployeeReprository>(() => new EmployeeReprository(dbContext));
+            _departmentReprository = new Lazy<IDepartmentReprository>(() => new DepartmentReprository(dbContext));
         }
 
-        public IEmployeeReprository EmployeeReprository => _employeeReprository;
+        public Interfaces.IEmployeeReprository EmployeeReprository => _employeeReprository.Value;
 
-        public IDepartmentReprository DepartmenReprository => _departmentReprository;
+        public IDepartmentReprository DepartmenReprository => _departmentReprository.Value;
 
         public int SaveChanges() =>  _dbContext.SaveChanges();
         
