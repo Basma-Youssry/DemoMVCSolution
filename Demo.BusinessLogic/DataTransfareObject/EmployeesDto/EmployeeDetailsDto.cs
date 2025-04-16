@@ -28,6 +28,8 @@ namespace Demo.BusinessLogic.DataTransfareObject.EmployeesDto
 
         public int? DepartmentId { get; set; }
         public string? Department { get; set; }
+
+        public string? Image { get; set; }
     }
 }
 
