@@ -21,10 +21,10 @@ namespace Demo.BusinessLogic.DataTransfareObject.EmployeeDto
         public bool IsActive { get; set; }
         [EmailAddress]
         public string? Email { get; set; }
-        public string EmpGender { get; set; }
+        public string EmpGender { get; set; } = null!;
 
         [Display(Name = "Employee Type")]
-        public string EmpType { get; set; }
+        public string EmpType { get; set; } = null!;
 
         public string? Department { get; set; }
 

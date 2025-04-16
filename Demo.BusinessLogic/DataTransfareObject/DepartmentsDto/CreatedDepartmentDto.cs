@@ -14,7 +14,7 @@ namespace Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto
 
         [Required]
         [Range(100, int.MaxValue)]
-        public string Code { get; set; }
+        public string Code { get; set; } = null!;
 
         public DateOnly DateOfCreation { get; set; }
 
