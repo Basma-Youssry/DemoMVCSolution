@@ -1,9 +1,12 @@
 using Demo.BusinessLogic.Profiles;
+using Demo.BusinessLogic.Services.AttatchmentService;
 using Demo.BusinessLogic.Services.Classes;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Data.DbContexts;
+using Demo.DataAccess.Modules.IdentityModel;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
@@ -39,8 +42,13 @@ namespace Demo.presentation
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            builder.Services.AddScoped<IAttachmentService, AttachmentService>();
             //builder.Services.AddAutoMapper(typeof(ProjectReference).Assembly);
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
             #endregion
 
 
@@ -63,7 +71,7 @@ namespace Demo.presentation
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Register}/{id?}");
             #endregion
 
 

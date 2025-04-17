@@ -33,5 +33,7 @@ namespace Demo.presentation.ViewModels.EmployeeViewModel
         //For relationship between Employee and department
         [Display(Name = "Department")]
         public int? DepartmentId { get; set; }
+
+        public IFormFile? Image { get; set; }
     }
 }

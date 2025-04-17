@@ -47,7 +47,8 @@ namespace Demo.presentation.Controllers
                         IsActive = employeeViewModel.IsActive,
                         Gender = employeeViewModel.Gender,
                         EmployeeType = employeeViewModel.EmployeeType,
-                        DepartmentId = employeeViewModel.DepartmentId
+                        DepartmentId = employeeViewModel.DepartmentId,
+                        Image = employeeViewModel.Image
                     };
                     int Result = _employeeService.CreateEmployee(employeeDto);
 

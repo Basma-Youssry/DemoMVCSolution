@@ -19,8 +19,8 @@ namespace Demo.BusinessLogic.DataTransfareObject.EmployeesDto
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
         public DateOnly HiringDate { get; set; }
-        public string Gender { get; set; }
-        public string EmployeeType { get; set; }
+        public string Gender { get; set; } = null!;
+        public string EmployeeType { get; set; } = null!;
         public int CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public int LastModifiedBy { get; set; }
@@ -28,6 +28,8 @@ namespace Demo.BusinessLogic.DataTransfareObject.EmployeesDto
 
         public int? DepartmentId { get; set; }
         public string? Department { get; set; }
+
+        public string? Image { get; set; }
     }
 }
 

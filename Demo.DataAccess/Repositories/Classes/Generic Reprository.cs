@@ -31,7 +31,7 @@ namespace Demo.DataAccess.Repositories.Classes
         }
         ////Get By Id
 
-        public TEntity GetById(int id) => _dbContext.Set<TEntity>().Find(id);
+        public TEntity GetById(int id) => _dbContext.Set<TEntity>().Find(id); 
 
         //Update
 

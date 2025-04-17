@@ -9,6 +9,7 @@ using Demo.BusinessLogic.DataTransfareObject.DepartmentsDto;
 using Demo.BusinessLogic.DataTransfareObject.EmployeeDto;
 using Demo.BusinessLogic.DataTransfareObject.EmployeesDto;
 using Demo.BusinessLogic.Factories;
+using Demo.BusinessLogic.Services.AttatchmentService;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.DataAccess.Modules.EmployeeModel;
 using Demo.DataAccess.Repositories.Interfaces;
@@ -16,7 +17,7 @@ using Demo.DataAccess.Repositories.Interfaces;
 namespace Demo.BusinessLogic.Services.Classes
 {
 
-    public class EmployeeService(IUnitOfWork _unitofwork, IMapper _mapper) : IEmployeeService
+    public class EmployeeService(IUnitOfWork _unitofwork, IMapper _mapper,IAttachmentService _attachmentService) : IEmployeeService
     {
         public IEnumerable<EmployeeDto> GetAllEmployees(string? EmployeeSearchName)
         {
@@ -47,6 +48,9 @@ namespace Demo.BusinessLogic.Services.Classes
         public int CreateEmployee(CreatedEmployeeDto employeeDto)
         {
             var employee = _mapper.Map<CreatedEmployeeDto, Employee>(employeeDto);
+
+            if (employeeDto.Image is not null)
+              employee.ImageName = _attachmentService.Upload(employeeDto.Image, "Images");
 
             _unitofwork.EmployeeReprository.Add(employee); //AddLocally
 
