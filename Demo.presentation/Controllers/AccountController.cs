@@ -82,7 +82,13 @@ namespace Demo.presentation.Controllers
            
         }
         #endregion
-       
-        //Logout
+
+        #region LogOut
+        public new IActionResult SignOut()
+        {
+            _signInManager.SignOutAsync();
+            return RedirectToAction("Login");
+        }
+        #endregion
     }
 }
