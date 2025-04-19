@@ -22,17 +22,17 @@ namespace Demo.BusinessLogic.Services.AttatchmentService
             if (!allowedExtensions.Contains(extension)) return null;
 
             //2.Check size
-            if (file.Length == 0 || file.Length > maxSize) return null;
+            if (file ==null || file.Length == 0 || file.Length > maxSize) return null;
 
             //3.Get located folder path
             //C:\MVC demos\Session03&04&05&06\DemoMVCSolution\Demo.presentation\wwwroot\Files\Images\
             var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Files", FolderName);
 
-            //4.MAke attachment name Unique-- GUID
+            //4.Make attachment name Unique-- GUID
             var fileName = $"{Guid.NewGuid()}_{file.FileName}";
 
             //5.Get File path
-            var filePath = Path.Combine(folderPath, file.FileName);
+            var filePath = Path.Combine(folderPath, fileName);
 
             //6. Create file stream to copy file[Unmanaged]
             using FileStream fs = new FileStream(filePath, FileMode.Create);

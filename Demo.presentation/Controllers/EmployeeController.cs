@@ -6,11 +6,14 @@ using Demo.DataAccess.Modules.EmployeeModel;
 using Demo.DataAccess.Modules.Shared.Enums;
 using Demo.presentation.ViewModels.DepartmentViewModel;
 using Demo.presentation.ViewModels.EmployeeViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Demo.presentation.Controllers
 {
+    [Authorize]
+
     public class EmployeeController(IEmployeeService _employeeService, 
         ILogger<EmployeeController> _logger,
         IWebHostEnvironment _environment) : Controller
