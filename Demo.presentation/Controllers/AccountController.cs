@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Demo.presentation.Controllers
 {
-    public class AccountController (UserManager<ApplicationUser> _userManager): Controller
+    public class AccountController (UserManager<ApplicationUser> _userManager,
+                                    SignInManager<ApplicationUser> _signInManager): Controller
     {
 
         #region Register
@@ -29,7 +30,7 @@ namespace Demo.presentation.Controllers
             var Result = _userManager.CreateAsync(User, viewModel.Password).Result;
 
             if (Result.Succeeded)
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "Account");
             else
             {
                 foreach (var error in Result.Errors)
@@ -43,7 +44,45 @@ namespace Demo.presentation.Controllers
         }
         #endregion
 
-        //Login
+        #region Login
+        [HttpGet]
+        public IActionResult Login() => View();
+
+        [HttpPost]
+        public  IActionResult Login(LoginViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user =  _userManager.FindByEmailAsync(viewModel.Email).Result;
+
+                if(user is not null)
+                {
+                    var password =  _userManager.CheckPasswordAsync(user, viewModel.Password).Result;
+
+                    if(password)
+                    {
+
+                        var Result =  _signInManager.PasswordSignInAsync(user,viewModel.Password,viewModel.RememberMe,false).Result;
+
+                        if (Result.Succeeded)
+                            return RedirectToAction("Index", "Home");
+                        
+                    }
+                    else
+                        ModelState.AddModelError(string.Empty, "Password is wrong");
+                    
+                }
+
+                else
+                    ModelState.AddModelError(string.Empty, "Email is not found");
+                
+            }
+
+            return View(viewModel);
+           
+        }
+        #endregion
+       
         //Logout
     }
 }

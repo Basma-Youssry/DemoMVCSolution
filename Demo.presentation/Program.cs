@@ -6,6 +6,7 @@ using Demo.DataAccess.Data.DbContexts;
 using Demo.DataAccess.Modules.IdentityModel;
 using Demo.DataAccess.Repositories.Classes;
 using Demo.DataAccess.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -48,7 +49,18 @@ namespace Demo.presentation
             builder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+              options =>
+              {
+                  options.LoginPath = "/Account/Login";
+                  options.AccessDeniedPath = "/Home/Error";
+                  options.LogoutPath = "/Account/Login";
+              }
+
+            );
             #endregion
 
 
@@ -66,13 +78,13 @@ namespace Demo.presentation
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-        //pattern: "{controller=Account}/{action=Register}/{id?}");
+                //pattern: "{controller=Home}/{action=Index}/{id?}");
+               pattern: "{controller=Account}/{action=Register}/{id?}");
 
             #endregion
 

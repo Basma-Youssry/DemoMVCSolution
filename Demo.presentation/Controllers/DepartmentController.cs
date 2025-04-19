@@ -2,6 +2,7 @@
 using Demo.BusinessLogic.DataTransfareObject.DepartmentDto.DepartmentDto;
 using Demo.BusinessLogic.Services.Interfaces;
 using Demo.presentation.ViewModels.DepartmentViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -9,10 +10,11 @@ using Microsoft.Identity.Client;
 
 namespace Demo.presentation.Controllers
 {
+    [Authorize]
     public class DepartmentController(IDepartmentService _departmentService,
                                      ILogger<DepartmentController> _logger, IWebHostEnvironment _environment) : Controller
     {
-
+        
         // BaseUrl/Depratment/Index
         [HttpGet]
         public IActionResult Index()
