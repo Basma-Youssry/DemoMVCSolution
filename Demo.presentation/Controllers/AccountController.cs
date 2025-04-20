@@ -1,4 +1,5 @@
-﻿using Demo.DataAccess.Modules.IdentityModel;
+﻿using System.Security.Cryptography.X509Certificates;
+using Demo.DataAccess.Modules.IdentityModel;
 using Demo.presentation.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -88,6 +89,33 @@ namespace Demo.presentation.Controllers
         {
             _signInManager.SignOutAsync();
             return RedirectToAction("Login");
+        }
+        #endregion
+
+        #region Forget Password
+        [HttpGet]
+        public IActionResult ForgetPassword() => View();
+
+        [HttpPost]
+        public IActionResult SendResetPasswordLink(ForgetPassword viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var User = _userManager.FindByEmailAsync(viewModel.Email).Result;
+
+                if(User is not null)
+                {
+                    var email = new Email()
+                    {
+                        To = viewModel.Email,
+                        Subject = "Reset Password",
+                        Body = "Reset Password Link"
+                    };
+                }
+
+            }
+            ModelState.AddModelError(string.Empty, "Invalid Operation");
+            return View(nameof(ForgetPassword), viewModel);
         }
         #endregion
     }
