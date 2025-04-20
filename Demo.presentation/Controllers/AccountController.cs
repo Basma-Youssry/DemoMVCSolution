@@ -106,11 +106,15 @@ namespace Demo.presentation.Controllers
 
                 if(User is not null)
                 {
+
+                    var Token = _userManager.GeneratePasswordResetTokenAsync(User).Result;
+
+                    var ResetPasswordLink = Url.Action("ResetPassword", "Account", new { email = viewModel.Email, Token}, Request.Scheme );
                     var email = new Email()
                     {
                         To = viewModel.Email,
                         Subject = "Reset Password",
-                        Body = "Reset Password Link"
+                        Body = ResetPasswordLink
                     };
                     EmailSettings.SendEmail(email);
                     return RedirectToAction("CheckYourInbox");
@@ -123,7 +127,43 @@ namespace Demo.presentation.Controllers
         #endregion
 
         #region CheckYourInbox
+        [HttpGet]
         public IActionResult CheckYourInbox() => View();
+        #endregion
+
+        #region Resetpassword
+        [HttpGet]
+        public IActionResult ResetPassword(string Email, string Token)
+        {
+            TempData["email"] = Email;
+            TempData["token"] = Token;
+
+            return View();
+        }
+        //Pa$$w0rd
+        [HttpPost]
+        public IActionResult ResetPassword(ResetPasswordViewModel resetViewModel)
+        {
+            if (!ModelState.IsValid) return View(resetViewModel);
+
+            string email = TempData["email"] as string ?? string.Empty;
+            string Token = TempData["token"] as string ?? string.Empty;
+
+            var User = _userManager.FindByEmailAsync(email).Result;
+            if(User is not null)
+            {
+                var Result = _userManager.ResetPasswordAsync(User, Token, resetViewModel.Password).Result;
+
+                if (Result.Succeeded)
+                    return RedirectToAction(nameof(Login));
+                else
+                {
+                    foreach (var error in Result.Errors)
+                        ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(nameof(ResetPassword), resetViewModel);
+        }
         #endregion
     }
 }
