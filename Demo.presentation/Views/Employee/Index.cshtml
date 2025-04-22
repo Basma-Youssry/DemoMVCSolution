@@ -58,11 +58,15 @@
                     <td>@employee.EmpGender</td>
 
                     @* @Html.PartialAsync("_ButtonsPartialView", employee.Id); *@
-                    <partial name="_ButtonsPartialView" model="employee.Id" />
+                    <partial name="_ButtonsPartialView" model="employee.Id.ToString()" />
                     <td>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@employee.Id">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
+                        @* <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@employee.Id"> *@
+                        @*     <i class="fas fa-trash"></i> Delete *@
+                        @* </button> *@
+
+                        <a class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-@employee.Id">
+                            <i class="fas fa-trash"></i>
+                        </a>
                         <!-- Delete Modal -->
                         <div class="modal fade" id="deleteModal-@employee.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">

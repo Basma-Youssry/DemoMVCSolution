@@ -8,7 +8,7 @@ using Demo.DataAccess.Modules.Shared;
 
 namespace Demo.DataAccess.Repositories.Interfaces
 {
-    public interface IGenericReprository<TEntity> where TEntity : BaseEntity
+    public interface IGenericReprository<TEntity>  where TEntity : BaseEntity 
     {
         void Add(TEntity entity);
         IEnumerable<TEntity> GetAll(bool withTracking = false);

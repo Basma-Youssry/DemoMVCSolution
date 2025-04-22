@@ -47,7 +47,7 @@
                 <th>@Html.DisplayNameFor(D => D.DateOfCreation)</th>
                 <th>Details</th>
                 <th>Update</th>
-                <th>Details</th>
+                <th>Delete</th>
             </tr>
 
         </thead>
@@ -61,12 +61,18 @@
 
                     @* @Html.PartialAsync("_ButtonsPartialView", department.Id); *@
                    
-                    <partial name="_ButtonsPartialView" model="department.Id"/>
+                    <partial name="_ButtonsPartialView" model="department.Id.ToString()"/>
 
                     <td>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@department.Id">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
+                        @* <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@department.Id"> *@
+                        @*     <i class="fas fa-trash"></i> Delete *@
+                        @* </button> *@
+
+                        <a class="text-danger" data-bs-toggle="modal" data-bs-target="#DeleteModal-@department.Id">
+                            <i class="fas fa-trash"></i>
+                        </a>
+
+                     
                         <div class="modal fade" id="DeleteModal-@department.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
